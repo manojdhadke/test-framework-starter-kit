@@ -2,6 +2,7 @@ package com.demo.learning.utility;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.function.Function;
@@ -100,11 +101,20 @@ public class ApplicationUtility {
 		return driver;
 	}
 
-	public String getPropertyFileData(String data) throws IOException {
+	public String getPropertyFileData(String data){
 		propertiesObject = new Properties();
 		String valueFromPropertiesFile;
-		propertiesFile = new FileInputStream(System.getProperty("user.dir") + "/testsettings.properties/");
-		propertiesObject.load(propertiesFile);
+		try {
+			propertiesFile = new FileInputStream(System.getProperty("user.dir") + "/testsettings.properties/");
+			propertiesObject.load(propertiesFile);
+
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
 		valueFromPropertiesFile = propertiesObject.getProperty(data);
 		return valueFromPropertiesFile;
 	}
